@@ -10,7 +10,7 @@ import requests
 
 GROUPS = {
     "Technology": "AAPL ADBE AMD AMZN ASML AVGO CBRS DRAM GOOG META MRVL MSFT MU NVDA ORCL SKHY SNDK SPCX TSLA TSM",
-    "Other": "BRK.B CALY COST FIG OHI PSA SOFI UNH WMT",
+    "Other": "BRK.B COST OHI UNH WMT",
     "ETFs": "GLD QQQ SPHD SPY VOO",
 }
 SYMBOLS = list(dict.fromkeys(t for group in GROUPS.values() for t in group.split()))
