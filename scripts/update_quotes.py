@@ -4,14 +4,9 @@ from pathlib import Path
 import yfinance as yf
 
 groups = {
-"Technology":"CBRS AAPL NVDA MSFT GOOG META NFLX AVGO AMD MU MRVL INTC QCOM ASML TSM SNDK ADBE ORCL WDAY PLTR DRAM SKHY SPCX",
-"Consumer":"AMZN TSLA COST WMT DIS",
-"Financials":"BRK.B IBKR SOFI FIG",
-"Healthcare":"UNH",
-"RealEstate":"OHI PSA",
-"Other":"RDDT CALY",
-"ETFs":"SPY VOO SPHD SLV SPX",
-"Forex":"USD.CNH USD.HKD EUR.USD GBP.USD USD.JPY"
+  "Technology": "CBRS AAPL NVDA MSFT GOOG META NFLX AVGO AMD MU MRVL INTC QCOM ASML TSM SNDK ADBE ORCL WDAY PLTR DRAM SKHY SPCX AMZN TSLA",
+  "Other": "COST WMT DIS BRK.B IBKR SOFI FIG UNH OHI PSA RDDT CALY",
+  "ETFs": "SPY VOO SPHD SLV SPX"
 }
 aliases = {"BRK.B":"BRK-B","SPX":"^GSPC","USD.CNH":"CNH=X","USD.HKD":"HKD=X","EUR.USD":"EURUSD=X","GBP.USD":"GBPUSD=X","USD.JPY":"JPY=X"}
 symbols = list(dict.fromkeys(s for group in groups.values() for s in group.split()))
