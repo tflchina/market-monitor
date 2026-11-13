@@ -1,5 +1,194 @@
 {
-  "updatedAt": null,
-  "quotes": {},
-  "note": "Waiting for first GitHub Actions run; unavailable prices shown as dashes"
+  "updatedAt": "2026-11-13T18:27:53.090741+00:00",
+  "quotes": {
+    "AAPL": {
+      "price": 358.32,
+      "changePct": 0.9693
+    },
+    "NVDA": {
+      "price": 161.42,
+      "changePct": -2.8702
+    },
+    "MSFT": {
+      "price": 524.56,
+      "changePct": 0.2983
+    },
+    "AVGO": {
+      "price": 345.93,
+      "changePct": -5.0582
+    },
+    "AMD": {
+      "price": 526.33,
+      "changePct": -10.0752
+    },
+    "MU": {
+      "price": 763.825,
+      "changePct": -4.3353
+    },
+    "MRVL": {
+      "price": 155.225,
+      "changePct": -5.6096
+    },
+    "INTC": {
+      "price": 59.08,
+      "changePct": -3.4641
+    },
+    "QCOM": {
+      "price": 171.6101,
+      "changePct": -3.1218
+    },
+    "ASML": {
+      "price": 1483.0,
+      "changePct": -0.9431
+    },
+    "TSM": {
+      "price": 396.84,
+      "changePct": -2.1332
+    },
+    "SNDK": {
+      "price": 866.8258,
+      "changePct": -7.5346
+    },
+    "ADBE": {
+      "price": 241.745,
+      "changePct": 1.3436
+    },
+    "ORCL": {
+      "price": 124.505,
+      "changePct": -2.0494
+    },
+    "WDAY": {
+      "price": 194.46,
+      "changePct": 2.0038
+    },
+    "PLTR": {
+      "price": 168.22,
+      "changePct": -1.9583
+    },
+    "DRAM": {
+      "price": 41.855,
+      "changePct": -4.1342
+    },
+    "SKHY": {
+      "price": 131.3,
+      "changePct": -4.6547
+    },
+    "SPCX": {
+      "price": 140.05,
+      "changePct": 0.0786
+    },
+    "GOOG": {
+      "price": 292.3148,
+      "changePct": -1.0277
+    },
+    "GOOGL": {
+      "price": 295.52,
+      "changePct": -1.0646
+    },
+    "META": {
+      "price": 637.785,
+      "changePct": 2.2731
+    },
+    "NFLX": {
+      "price": 62.355,
+      "changePct": -0.5344
+    },
+    "AMZN": {
+      "price": 265.67,
+      "changePct": -0.6618
+    },
+    "TSLA": {
+      "price": 391.1501,
+      "changePct": -1.5851
+    },
+    "COST": {
+      "price": 1104.4,
+      "changePct": 1.1161
+    },
+    "WMT": {
+      "price": 127.9,
+      "changePct": 1.3551
+    },
+    "DIS": {
+      "price": 119.07,
+      "changePct": 0.7105
+    },
+    "BRK.B": {
+      "price": 592.3001,
+      "changePct": 0.4188
+    },
+    "IBKR": {
+      "price": 81.51,
+      "changePct": 0.2213
+    },
+    "SOFI": {
+      "price": 15.4999,
+      "changePct": -0.8324
+    },
+    "FIG": {
+      "price": 19.5,
+      "changePct": 3.0655
+    },
+    "UNH": {
+      "price": 402.2121,
+      "changePct": -0.7202
+    },
+    "OHI": {
+      "price": 47.05,
+      "changePct": 0.0425
+    },
+    "PSA": {
+      "price": 333.05,
+      "changePct": -0.084
+    },
+    "CBRS": {
+      "price": 108.77,
+      "changePct": 11.2737
+    },
+    "RDDT": {
+      "price": 99.32,
+      "changePct": -0.231
+    },
+    "CALY": {
+      "price": 16.96,
+      "changePct": 2.2919
+    },
+    "SPY": {
+      "price": 752.43,
+      "changePct": -0.6195
+    },
+    "VOO": {
+      "price": 691.6699,
+      "changePct": -0.6221
+    },
+    "SPHD": {
+      "price": 53.0501,
+      "changePct": 0.6643
+    },
+    "SLV": {
+      "price": 44.3943,
+      "changePct": -1.6084
+    },
+    "SPX": {
+      "price": 7545.02,
+      "changePct": -0.624
+    },
+    "USD.HKD": {
+      "price": 7.8454,
+      "changePct": 0.0131
+    },
+    "EUR.USD": {
+      "price": 1.1036,
+      "changePct": -0.5308
+    },
+    "GBP.USD": {
+      "price": 1.3216,
+      "changePct": -0.4546
+    },
+    "USD.JPY": {
+      "price": 159.578,
+      "changePct": -0.0977
+    }
+  },
+  "note": "Latest available 5-minute bar, compared with prior daily close; may be delayed"
 }
