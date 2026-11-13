@@ -11,7 +11,7 @@ import requests
 GROUPS = {
     "Technology": "CBRS AAPL NVDA MSFT GOOG META AVGO AMD MU MRVL ASML TSM SNDK ADBE ORCL DRAM SKHY SPCX AMZN TSLA",
     "Other": "COST WMT BRK.B SOFI FIG UNH OHI PSA CALY",
-    "ETFs": "SPY VOO SPHD SLV SPX",
+    "ETFs": "SPY VOO QQQ SPHD SLV SPX",
 }
 SYMBOLS = list(dict.fromkeys(t for group in GROUPS.values() for t in group.split()))
 # SPX is an index, not an IEX-traded equity. Keep its previous quote, if any.
