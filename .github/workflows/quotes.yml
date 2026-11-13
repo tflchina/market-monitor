@@ -1,7 +1,6 @@
 name: Update market quotes
 on:
   schedule:
-    # UTC range covers 9:30am–4pm ET in both EST and EDT; script checks NYSE calendar.
     - cron: '*/5 13-21 * * 1-5'
   workflow_dispatch:
 permissions:
@@ -17,11 +16,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install yfinance pandas pandas_market_calendars
-      - run: python scripts/update_quotes.py
+      - run: pip install requests pandas pandas_market_calendars
+      - name: Fetch Alpaca IEX snapshots
+        env:
+          ALPACA_API_KEY_ID: ${{ secrets.ALPACA_API_KEY_ID }}
+          ALPACA_API_SECRET_KEY: ${{ secrets.ALPACA_API_SECRET_KEY }}
+        run: python scripts/update_quotes.py
       - name: Commit quote snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add quotes.json
-          git diff --cached --quiet || (git commit -m "Refresh market quotes" && git push)
+          git diff --cached --quiet || (git commit -m "Refresh Alpaca IEX quotes" && git push)
