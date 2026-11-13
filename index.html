@@ -14,5 +14,5 @@ async function load(){const status=document.getElementById('status');status.text
 document.getElementById('search').oninput=e=>{const q=e.target.value.toUpperCase().trim();for(const [ticker,b] of tiles)b.classList.toggle('hide',!ticker.includes(q));for(const sec of document.querySelectorAll('.sector'))sec.classList.toggle('hide',!sec.querySelector('.tile:not(.hide)'))};
 function fitScreen(){const layout=document.getElementById('layout');layout.style.zoom='1';if(window.innerWidth<901)return;const available=window.innerHeight-layout.getBoundingClientRect().top-78;const content=layout.scrollHeight;const ratio=Math.min(1,Math.max(.55,available/content));layout.style.zoom=String(ratio)}
 window.addEventListener('resize',fitScreen);
-document.getElementById('refresh').onclick=load;draw();fitScreen();load();setInterval(load,120000);
+document.getElementById('refresh').onclick=load;draw();fitScreen();load();setInterval(load,10000);
 </script></body></html>
