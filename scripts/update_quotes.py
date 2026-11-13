@@ -4,13 +4,12 @@ from pathlib import Path
 import yfinance as yf
 
 groups = {
-"Technology":"AAPL NVDA MSFT AVGO AMD MU MRVL INTC QCOM ASML TSM SNDK ADBE ORCL WDAY PLTR DRAM SKHY SPCX",
-"Communication":"GOOG GOOGL META NFLX",
+"Technology":"CBRS AAPL NVDA MSFT GOOG META NFLX AVGO AMD MU MRVL INTC QCOM ASML TSM SNDK ADBE ORCL WDAY PLTR DRAM SKHY SPCX",
 "Consumer":"AMZN TSLA COST WMT DIS",
 "Financials":"BRK.B IBKR SOFI FIG",
 "Healthcare":"UNH",
 "RealEstate":"OHI PSA",
-"Other":"CBRS RDDT CALY",
+"Other":"RDDT CALY",
 "ETFs":"SPY VOO SPHD SLV SPX",
 "Forex":"USD.CNH USD.HKD EUR.USD GBP.USD USD.JPY"
 }
