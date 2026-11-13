@@ -1,193 +1,173 @@
 {
-  "updatedAt": "2026-11-13T18:34:53.335776+00:00",
+  "updatedAt": "2026-11-13T18:49:01.234519+00:00",
   "quotes": {
+    "CBRS": {
+      "price": 108.04,
+      "changePct": 10.5269
+    },
     "AAPL": {
-      "price": 357.715,
-      "changePct": 0.7989
+      "price": 358.1451,
+      "changePct": 0.9201
     },
     "NVDA": {
-      "price": 161.545,
-      "changePct": -2.795
+      "price": 161.9661,
+      "changePct": -2.5416
     },
     "MSFT": {
-      "price": 524.114,
-      "changePct": 0.213
-    },
-    "AVGO": {
-      "price": 345.715,
-      "changePct": -5.1172
-    },
-    "AMD": {
-      "price": 526.96,
-      "changePct": -9.9675
-    },
-    "MU": {
-      "price": 763.085,
-      "changePct": -4.428
-    },
-    "MRVL": {
-      "price": 155.2,
-      "changePct": -5.6248
-    },
-    "INTC": {
-      "price": 59.065,
-      "changePct": -3.4886
-    },
-    "QCOM": {
-      "price": 172.085,
-      "changePct": -2.8537
-    },
-    "ASML": {
-      "price": 1483.075,
-      "changePct": -0.9381
-    },
-    "TSM": {
-      "price": 397.065,
-      "changePct": -2.0777
-    },
-    "SNDK": {
-      "price": 864.8601,
-      "changePct": -7.7443
-    },
-    "ADBE": {
-      "price": 242.47,
-      "changePct": 1.6475
-    },
-    "ORCL": {
-      "price": 124.55,
-      "changePct": -2.014
-    },
-    "WDAY": {
-      "price": 194.86,
-      "changePct": 2.2136
-    },
-    "PLTR": {
-      "price": 168.185,
-      "changePct": -1.9787
-    },
-    "DRAM": {
-      "price": 41.7879,
-      "changePct": -4.2879
-    },
-    "SKHY": {
-      "price": 130.865,
-      "changePct": -4.9706
-    },
-    "SPCX": {
-      "price": 139.895,
-      "changePct": -0.0322
+      "price": 524.16,
+      "changePct": 0.2218
     },
     "GOOG": {
-      "price": 292.4,
-      "changePct": -0.9988
-    },
-    "GOOGL": {
-      "price": 295.64,
-      "changePct": -1.0244
+      "price": 292.44,
+      "changePct": -0.9853
     },
     "META": {
-      "price": 636.955,
-      "changePct": 2.14
+      "price": 640.415,
+      "changePct": 2.6948
     },
     "NFLX": {
-      "price": 62.49,
-      "changePct": -0.319
+      "price": 62.445,
+      "changePct": -0.3908
+    },
+    "AVGO": {
+      "price": 346.02,
+      "changePct": -5.0335
+    },
+    "AMD": {
+      "price": 527.58,
+      "changePct": -9.8616
+    },
+    "MU": {
+      "price": 763.375,
+      "changePct": -4.3917
+    },
+    "MRVL": {
+      "price": 154.6908,
+      "changePct": -5.9344
+    },
+    "INTC": {
+      "price": 58.8958,
+      "changePct": -3.765
+    },
+    "QCOM": {
+      "price": 172.1,
+      "changePct": -2.8452
+    },
+    "ASML": {
+      "price": 1483.0,
+      "changePct": -0.9431
+    },
+    "TSM": {
+      "price": 397.275,
+      "changePct": -2.0259
+    },
+    "SNDK": {
+      "price": 863.7729,
+      "changePct": -7.8603
+    },
+    "ADBE": {
+      "price": 242.595,
+      "changePct": 1.6999
+    },
+    "ORCL": {
+      "price": 124.77,
+      "changePct": -1.8409
+    },
+    "WDAY": {
+      "price": 195.25,
+      "changePct": 2.4182
+    },
+    "PLTR": {
+      "price": 168.3,
+      "changePct": -1.9116
+    },
+    "DRAM": {
+      "price": 41.835,
+      "changePct": -4.18
+    },
+    "SKHY": {
+      "price": 131.07,
+      "changePct": -4.8217
+    },
+    "SPCX": {
+      "price": 140.075,
+      "changePct": 0.0965
     },
     "AMZN": {
-      "price": 265.64,
-      "changePct": -0.673
+      "price": 265.92,
+      "changePct": -0.5683
     },
     "TSLA": {
-      "price": 390.395,
-      "changePct": -1.7751
+      "price": 390.88,
+      "changePct": -1.653
     },
     "COST": {
-      "price": 1104.16,
-      "changePct": 1.0941
+      "price": 1103.48,
+      "changePct": 1.0319
     },
     "WMT": {
-      "price": 127.82,
-      "changePct": 1.2917
+      "price": 127.53,
+      "changePct": 1.0619
     },
     "DIS": {
-      "price": 119.125,
-      "changePct": 0.757
+      "price": 119.31,
+      "changePct": 0.9135
     },
     "BRK.B": {
-      "price": 592.1026,
-      "changePct": 0.3853
+      "price": 592.52,
+      "changePct": 0.4561
     },
     "IBKR": {
-      "price": 81.525,
-      "changePct": 0.2398
+      "price": 81.48,
+      "changePct": 0.1844
     },
     "SOFI": {
-      "price": 15.485,
-      "changePct": -0.9277
+      "price": 15.455,
+      "changePct": -1.1196
     },
     "FIG": {
-      "price": 19.54,
-      "changePct": 3.277
+      "price": 19.495,
+      "changePct": 3.0391
     },
     "UNH": {
-      "price": 402.76,
-      "changePct": -0.585
+      "price": 402.83,
+      "changePct": -0.5677
     },
     "OHI": {
-      "price": 47.015,
-      "changePct": -0.0319
+      "price": 47.0,
+      "changePct": -0.0638
     },
     "PSA": {
-      "price": 332.975,
-      "changePct": -0.1065
-    },
-    "CBRS": {
-      "price": 108.2891,
-      "changePct": 10.7817
+      "price": 333.155,
+      "changePct": -0.0525
     },
     "RDDT": {
-      "price": 99.165,
-      "changePct": -0.3867
+      "price": 99.23,
+      "changePct": -0.3214
     },
     "CALY": {
-      "price": 16.95,
-      "changePct": 2.2316
+      "price": 16.94,
+      "changePct": 2.1713
     },
     "SPY": {
-      "price": 752.27,
-      "changePct": -0.6406
+      "price": 752.79,
+      "changePct": -0.5719
     },
     "VOO": {
-      "price": 691.59,
-      "changePct": -0.6336
+      "price": 691.935,
+      "changePct": -0.5841
     },
     "SPHD": {
-      "price": 53.06,
-      "changePct": 0.6831
+      "price": 53.07,
+      "changePct": 0.7021
     },
     "SLV": {
-      "price": 44.345,
-      "changePct": -1.7176
+      "price": 44.2799,
+      "changePct": -1.8619
     },
     "SPX": {
-      "price": 7544.0601,
-      "changePct": -0.6367
-    },
-    "USD.HKD": {
-      "price": 7.8454,
-      "changePct": 0.0131
-    },
-    "EUR.USD": {
-      "price": 1.1033,
-      "changePct": -0.5638
-    },
-    "GBP.USD": {
-      "price": 1.3212,
-      "changePct": -0.4888
-    },
-    "USD.JPY": {
-      "price": 159.674,
-      "changePct": -0.0376
+      "price": 7548.4399,
+      "changePct": -0.579
     }
   },
   "note": "Latest available 5-minute bar, compared with prior daily close; may be delayed"
