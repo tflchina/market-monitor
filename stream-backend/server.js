@@ -15,7 +15,7 @@ if (!KEY || !SECRET || !VIEWER_TOKEN) {
   console.error("Set ALPACA_API_KEY_ID, ALPACA_API_SECRET_KEY and VIEWER_TOKEN");
   process.exit(1);
 }
-const symbols = ["CBRS","NVDA","AAPL","MSFT","GOOG","META","AMZN","TSLA","AVGO","AMD","MU","MRVL","INTC","QCOM","ASML","TSM","SNDK","ADBE","ORCL","WDAY","PLTR","NFLX","COST","WMT","DIS","BRK.B","IBKR","SPY","VOO","RDDT"];
+const symbols = ["CBRS","NVDA","AAPL","MSFT","GOOG","META","AMZN","TSLA","AVGO","AMD","MU","MRVL","ASML","TSM","SNDK","ADBE","ORCL","COST","WMT","BRK.B","SPY","VOO"];
 const alpacaSymbols = symbols.map(s => s === "BRK.B" ? "BRK.B" : s);
 const reverse = Object.fromEntries(symbols.map((s,i) => [alpacaSymbols[i],s]));
 const quotes = new Map();
