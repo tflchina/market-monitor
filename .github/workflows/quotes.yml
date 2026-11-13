@@ -1,7 +1,8 @@
 name: Update market quotes
 on:
   schedule:
-    - cron: '*/5 13-21 * * 1-5'
+    # UTC 08:00-23:59 covers 04:00-20:00 ET across DST; Python filters session and cadence.
+    - cron: '*/5 8-23 * * 1-5'
   workflow_dispatch:
 permissions:
   contents: write
