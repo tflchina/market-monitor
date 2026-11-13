@@ -1,68 +1,72 @@
-"""Batch Yahoo Finance snapshot during regular NYSE trading hours only."""
+"""Alpaca Basic IEX snapshots, during regular NYSE trading sessions only."""
 import json
 import math
+import os
 from datetime import datetime, timezone
 from pathlib import Path
-from zoneinfo import ZoneInfo
 import pandas as pd
 import pandas_market_calendars as mcal
-import yfinance as yf
+import requests
 
 GROUPS = {
     "Technology": "CBRS AAPL NVDA MSFT GOOG META AVGO AMD MU MRVL ASML TSM SNDK ADBE ORCL DRAM SKHY SPCX AMZN TSLA",
     "Other": "COST WMT BRK.B SOFI FIG UNH OHI PSA CALY",
     "ETFs": "SPY VOO SPHD SLV SPX",
 }
-ALIASES = {"BRK.B": "BRK-B", "SPX": "^GSPC"}
-SYMBOLS = list(dict.fromkeys(s for group in GROUPS.values() for s in group.split()))
-REVERSE = {ALIASES.get(s, s): s for s in SYMBOLS}
+SYMBOLS = list(dict.fromkeys(t for group in GROUPS.values() for t in group.split()))
+# SPX is an index, not an IEX-traded equity. Keep its previous quote, if any.
+EQUITIES = [s for s in SYMBOLS if s != "SPX"]
 NOW = datetime.now(timezone.utc)
-calendar = mcal.get_calendar("NYSE")
-session = calendar.schedule(start_date=NOW.date(), end_date=NOW.date())
-if session.empty or not (session.iloc[0]["market_open"] <= pd.Timestamp(NOW) <= session.iloc[0]["market_close"]):
-    print("Outside regular NYSE hours or market holiday: no fetch.")
+schedule = mcal.get_calendar("NYSE").schedule(start_date=NOW.date(), end_date=NOW.date())
+if schedule.empty or not (schedule.iloc[0]["market_open"] <= pd.Timestamp(NOW) <= schedule.iloc[0]["market_close"]):
+    print("Market closed; keeping existing quotes.")
     raise SystemExit(0)
 
-existing_path = Path("quotes.json")
+key = os.environ.get("ALPACA_API_KEY_ID")
+secret = os.environ.get("ALPACA_API_SECRET_KEY")
+if not key or not secret:
+    raise SystemExit("Missing Alpaca credentials in GitHub Actions secrets.")
+path = Path("quotes.json")
 try:
-    existing = json.loads(existing_path.read_text()) if existing_path.exists() else {}
+    existing = json.loads(path.read_text()) if path.exists() else {}
 except (OSError, ValueError):
     existing = {}
 quotes = existing.get("quotes", {})
-tickers = list(REVERSE)
-print(f"Batch fetching {len(tickers)} instruments")
-try:
-    daily = yf.download(tickers, period="7d", interval="1d", auto_adjust=False, progress=False, threads=True, group_by="ticker")
-    minute = yf.download(tickers, period="1d", interval="1m", auto_adjust=False, progress=False, threads=True, group_by="ticker")
-except Exception as exc:
-    print("Batch fetch failed:", exc)
-    raise SystemExit(1)
-
+response = requests.get(
+    "https://data.alpaca.markets/v2/stocks/snapshots",
+    params={"symbols": ",".join(EQUITIES), "feed": "iex"},
+    headers={"APCA-API-KEY-ID": key, "APCA-API-SECRET-KEY": secret},
+    timeout=30,
+)
+response.raise_for_status()
+snapshots = response.json()
 updated = 0
-local_date = NOW.astimezone(ZoneInfo("America/New_York")).date()
-for ticker in tickers:
-    symbol = REVERSE[ticker]
+for symbol in EQUITIES:
+    snap = snapshots.get(symbol, {})
+    trade = snap.get("latestTrade") or {}
+    daily = snap.get("dailyBar") or {}
+    prev = snap.get("previousDailyBar") or {}
+    price = trade.get("p") or daily.get("c")
+    previous = prev.get("c")
     try:
-        d = daily[ticker]["Close"].dropna()
-        m = minute[ticker]["Close"].dropna()
-        if len(d) < 2 or m.empty:
+        price = float(price)
+        previous = float(previous)
+        if not (math.isfinite(price) and math.isfinite(previous) and price > 0 and previous > 0):
             continue
-        # Last completed daily bar may be today's partial bar.
-        dates = [pd.Timestamp(t).date() for t in d.index]
-        previous = [float(value) for date, value in zip(dates, d.values) if date < local_date]
-        if not previous:
-            continue
-        prior_close = previous[-1]
-        price = float(m.iloc[-1])
-        if not (math.isfinite(price) and math.isfinite(prior_close) and price > 0 and prior_close > 0):
-            continue
-        quotes[symbol] = {"price": round(price, 4), "changePct": round((price / prior_close - 1) * 100, 4), "source": "Yahoo Finance (unofficial)", "asOf": pd.Timestamp(m.index[-1]).isoformat()}
+        quotes[symbol] = {
+            "price": round(price, 4),
+            "changePct": round((price / previous - 1) * 100, 4),
+            "source": "Alpaca IEX",
+            "asOf": trade.get("t") or daily.get("t"),
+        }
         updated += 1
-    except (KeyError, IndexError, TypeError, ValueError) as exc:
-        print(f"{symbol}: {exc}")
-if updated == 0:
-    print("No valid updated quotes; keeping existing snapshot.")
-    raise SystemExit(1)
-output = {"updatedAt": NOW.isoformat(), "quotes": quotes, "note": "Yahoo Finance unofficial 1-minute bars, refreshed by GitHub Actions approximately every 5 minutes; may be delayed."}
-existing_path.write_text(json.dumps(output, indent=2) + "\n")
-print(f"Updated {updated}/{len(SYMBOLS)} symbols; kept prior values for missing symbols")
+    except (TypeError, ValueError):
+        continue
+if not updated:
+    raise SystemExit("No valid IEX quotes returned; preserving existing snapshot.")
+path.write_text(json.dumps({
+    "updatedAt": NOW.isoformat(),
+    "quotes": quotes,
+    "note": "IEX-only market data, not consolidated SIP; scheduled about every 5 minutes; quotes may be delayed or unavailable.",
+}, indent=2) + "\n")
+print(f"Updated {updated} of {len(EQUITIES)} eligible instruments; kept previous values for missing quotes.")
