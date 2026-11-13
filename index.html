@@ -1,52 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Market Monitor</title>
-<style>
-:root{color-scheme:dark}*{box-sizing:border-box}
-body{margin:0;background:#0b1220;color:#e6edf7;font:15px system-ui,-apple-system,sans-serif}
-main{max-width:1600px;margin:auto;padding:20px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-h1{font-size:clamp(22px,3vw,32px);margin:0}p{margin:6px 0;color:#a7b6ce}
-.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-input{background:#182438;color:#fff;border:1px solid #344761;border-radius:9px;padding:11px 13px;min-width:180px;flex:1;max-width:350px}
-.count,.note{color:#a7b6ce;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:12px}
-.tile{position:relative;min-width:0;min-height:160px;overflow:hidden;border:1px solid #33465e;border-radius:12px;background:#151f30}
-.tile-label{position:absolute;top:7px;right:9px;color:#a7b6ce;font-size:11px;z-index:1;pointer-events:none}
-.tile .tradingview-widget-container{height:160px;width:100%}
-.tile .tradingview-widget-container__widget{height:100%;width:100%}
-.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:13px;margin:8px 0 18px}
-.up{color:#4ade80}.down{color:#fb7185}.neutral{color:#a7b6ce}
-footer{margin-top:20px;font-size:12px;color:#899ab3;line-height:1.6}
-@media(max-width:520px){main{padding:12px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{min-height:165px}.tile .tradingview-widget-container{height:165px}.tile-label{font-size:10px}}
-</style>
-</head>
-<body><main>
-<header><div><h1>Market Monitor</h1><p>Favorites overview · stocks, ETFs, indices and FX</p></div><span class="count" id="count"></span></header>
-<div class="controls"><input id="search" type="search" placeholder="Filter symbols…" aria-label="Filter symbols"><span class="note">Quotes may be delayed</span></div>
-<div class="legend"><span class="up">▲ Gain</span><span class="down">▼ Loss</span><span class="neutral">— Unchanged / unavailable</span></div>
-<section id="grid" class="grid" aria-label="Favorites market overview"></section>
-<footer>Source: TradingView quote widgets. Each tile displays a ticker and the provider's latest available price and daily change; values are controlled by TradingView and may be delayed or unavailable. Imported Favorites snapshot from November 13, 2026; not automatically synced with the brokerage. No account credentials or holdings are published.</footer>
-</main>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Market Monitor Heatmap</title><style>
+*{box-sizing:border-box}body{margin:0;background:#090b0f;color:white;font:14px system-ui,sans-serif}header{background:#14171d;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}h1{margin:0;font-size:22px}.sub,.status{font-size:12px;color:#adb7c4}input,button{background:#252c35;border:1px solid #49505a;color:white;padding:9px;border-radius:5px}button{cursor:pointer}.layout{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px;padding:5px}.sector{grid-column:span 4;background:#17191e;min-width:0}.sector[data-name="Technology"]{grid-column:span 6}.sector h2{font-size:12px;background:#050608;margin:0;padding:5px}.tiles{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:75px;gap:2px}.tile{border:0;border-radius:0;min-width:0;color:white;padding:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;line-height:1.18}.ticker{font-size:clamp(11px,1.5vw,23px);font-weight:800}.price,.pct{font-size:clamp(10px,1.1vw,16px)}.tile.small .ticker,.tile.small .price,.tile.small .pct{font-size:11px}.tile:hover{outline:2px solid white;z-index:1}.legend{display:flex;gap:5px;align-items:center;flex-wrap:wrap;padding:12px}.sw{padding:5px 8px;font-size:12px}footer{padding:12px;color:#a5b0bd;font-size:12px;line-height:1.5}.hide{display:none!important}
+@media(max-width:900px){.sector,.sector[data-name]{grid-column:span 6}.ticker{font-size:15px}}
+@media(max-width:550px){.sector,.sector[data-name]{grid-column:span 12}.ticker{font-size:16px}.tiles{grid-auto-rows:72px}}
+</style></head><body><header><div><h1>Market Monitor</h1><div class="sub">Favorites heatmap · 48 unique instruments · tile size is illustrative, not portfolio weight</div></div><div><input id="search" placeholder="Search ticker" aria-label="Search ticker"> <button id="refresh">Refresh</button> <span id="status" class="status">Loading…</span></div></header><main id="layout" class="layout"></main><div class="legend"><span>Daily change</span><span class="sw" style="background:#8d0717">−3%+</span><span class="sw" style="background:#d8273a">−2%</span><span class="sw" style="background:#ee6370">−1%</span><span class="sw" style="background:#68717b">0%</span><span class="sw" style="background:#3cbd83">+1%</span><span class="sw" style="background:#128651">+2%</span><span class="sw" style="background:#075c39">+3%+</span></div><footer>Prices may be delayed or unavailable. A dash means no verified quote, not zero. Watchlist is a November 13, 2026 snapshot and is not synchronized automatically. No brokerage credentials, positions, or orders are published.</footer>
 <script>
-const symbols=["CBRS","AAPL","AMZN","META","NVDA","SPY","TSLA","USD.CNH","GOOG","COST","USD.HKD","SLV","VOO","SNDK","OHI","TSM","SPHD","UNH","MU","WMT","INTC","BRK.B","QCOM","ASML","AMD","NFLX","CALY","RDDT","PLTR","SOFI","FIG","ADBE","WDAY","DRAM","MRVL","SPCX","ORCL","SKHY","PSA","AVGO","MSFT","SPX","DIS","GOOGL","IBKR","EUR.USD","GBP.USD","USD.JPY"];
-const explicit={'BRK.B':'NYSE:BRK.B','SPX':'SP:SPX','USD.CNH':'FX_IDC:USDCNH','USD.HKD':'FX_IDC:USDHKD','EUR.USD':'FX:EURUSD','GBP.USD':'FX:GBPUSD','USD.JPY':'FX:USDJPY'};
-const nasdaq=new Set('AAPL AMZN META NVDA TSLA GOOG COST SNDK MU INTC QCOM AMD NFLX RDDT PLTR SOFI ADBE WDAY MRVL ORCL AVGO MSFT CBRS GOOGL IBKR'.split(' '));
-const nyse=new Set('OHI UNH WMT CALY FIG PSA TSM ASML DIS'.split(' '));
-function tv(t){return explicit[t]||((nasdaq.has(t)?'NASDAQ':nyse.has(t)?'NYSE':'AMEX')+':'+t)}
-const grid=document.getElementById('grid');
-function createTile(ticker){
- const tile=document.createElement('article');tile.className='tile';tile.dataset.symbol=ticker;
- const label=document.createElement('span');label.className='tile-label';label.textContent=ticker;tile.append(label);
- const wrap=document.createElement('div');wrap.className='tradingview-widget-container';
- const widget=document.createElement('div');widget.className='tradingview-widget-container__widget';wrap.append(widget);tile.append(wrap);
- const script=document.createElement('script');script.src='https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js';script.async=true;
- script.textContent=JSON.stringify({symbol:tv(ticker),width:'100%',isTransparent:true,colorTheme:'dark',locale:'en'});
- wrap.append(script);return tile;
-}
-const tiles=symbols.map(createTile);grid.append(...tiles);
-function filter(){const q=document.getElementById('search').value.trim().toUpperCase();let n=0;for(const tile of tiles){const visible=tile.dataset.symbol.includes(q);tile.hidden=!visible;tile.style.display=visible?'':'none';if(visible)n++}document.getElementById('count').textContent=n+' / '+symbols.length+' instruments'}
-document.getElementById('search').addEventListener('input',filter);filter();
+const groups={"Technology":"AAPL NVDA MSFT AVGO AMD MU MRVL INTC QCOM ASML TSM SNDK ADBE ORCL WDAY PLTR DRAM SKHY SPCX","Communication":"GOOG GOOGL META NFLX","Consumer":"AMZN TSLA COST WMT DIS","Financials":"BRK.B IBKR SOFI FIG","Healthcare":"UNH","RealEstate":"OHI PSA","Other":"CBRS RDDT CALY","ETFs":"SPY VOO SPHD SLV SPX","Forex":"USD.CNH USD.HKD EUR.USD GBP.USD USD.JPY"};
+const sizes={"CBRS":6,"AAPL":6,"NVDA":6,"MSFT":6,"GOOG":5,"GOOGL":4,"META":5,"AMZN":6,"TSLA":5,"AMD":4,"AVGO":4,"MU":4,"SPY":4,"VOO":4};
+const tiles=new Map();
+function bg(v){if(!Number.isFinite(v))return '#343b44';if(v<=-3)return '#8d0717';if(v<=-2)return '#c50b25';if(v<=-1)return '#df3448';if(v<0)return '#c46b74';if(v===0)return '#68717b';if(v<1)return '#64ad94';if(v<2)return '#30ad73';if(v<3)return '#138553';return '#075c39'}
+function draw(){for(const [name,tickers] of Object.entries(groups)){const sec=document.createElement('section');sec.className='sector';sec.dataset.name=name;const h=document.createElement('h2');h.textContent=name;sec.append(h);const grid=document.createElement('div');grid.className='tiles';sec.append(grid);for(const ticker of tickers.split(' ')){const size=sizes[ticker]||2;const b=document.createElement('button');b.className='tile'+(size===2?' small':'');b.style.gridColumn='span '+size;b.style.background='#343b44';for(const [cls,value] of [['ticker',ticker],['price','—'],['pct','—']]){const el=document.createElement('span');el.className=cls;el.textContent=value;b.append(el)}b.onclick=()=>window.open('https://www.tradingview.com/search/?query='+encodeURIComponent(ticker),'_blank','noopener');grid.append(b);tiles.set(ticker,b)}document.getElementById('layout').append(sec)}}
+function update(d){for(const [ticker,b] of tiles){const q=d.quotes&&d.quotes[ticker];const price=q?Number(q.price):NaN;const pct=q?Number(q.changePct):NaN;const ok=Number.isFinite(price)&&price>0&&Number.isFinite(pct);b.style.background=bg(ok?pct:NaN);b.querySelector('.price').textContent=ok?price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';b.querySelector('.pct').textContent=ok?(pct>0?'+':'')+pct.toFixed(2)+'%':'—'}}
+async function load(){const status=document.getElementById('status');status.textContent='Updating…';try{const r=await fetch('quotes.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('No quotes');const d=await r.json();update(d);status.textContent=d.updatedAt?'Updated '+new Date(d.updatedAt).toLocaleString():'No timestamp'}catch(e){status.textContent='Quotes unavailable'}}
+document.getElementById('search').oninput=e=>{const q=e.target.value.toUpperCase().trim();for(const [ticker,b] of tiles)b.classList.toggle('hide',!ticker.includes(q));for(const sec of document.querySelectorAll('.sector'))sec.classList.toggle('hide',!sec.querySelector('.tile:not(.hide)'))};
+document.getElementById('refresh').onclick=load;draw();load();setInterval(load,120000);
 </script></body></html>
