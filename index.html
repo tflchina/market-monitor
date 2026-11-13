@@ -1,23 +1,52 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Market Monitor</title>
-<style>:root{color-scheme:dark}body{margin:0;background:#0b1220;color:#e6edf7;font:15px system-ui,sans-serif}header,main{max-width:1200px;margin:auto;padding:24px}h1{margin:0;font-size:30px}p{color:#a7b6ce;line-height:1.6}.panel{background:#151f30;border:1px solid #29384e;border-radius:14px;padding:16px;margin:16px 0}input,select{background:#202e43;color:white;border:1px solid #41516b;border-radius:8px;padding:10px;margin:5px;max-width:100%}#symbols{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.symbol{border:1px solid #344761;background:#202e43;color:#dce7f8;padding:9px 13px;border-radius:9px;cursor:pointer}.symbol:hover,.symbol.active{background:#245b91}.chart{height:540px}.foot{font-size:12px}h2{font-size:19px}.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.overview-tile{min-width:0;overflow:hidden;border:1px solid #344761;border-radius:12px;background:#101b2b;height:150px}.overview-tile .tradingview-widget-container{height:100%;width:100%}@media(max-width:520px){.overview-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.overview-tile{height:145px}}
-.quote-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:13px;font-weight:600}.quote-legend .up{color:#4ade80}.quote-legend .down{color:#fb7185}.quote-legend .flat{color:#a7b6ce}.overview-tile{transition:border-color .2s,transform .2s}.overview-tile:hover{border-color:#7186a6;transform:translateY(-2px)}
-</style></head>
-<body><header><h1>Market Monitor</h1><p>Watchlists imported November 13, 2026 · TradingView market widgets · Quotes may be delayed</p></header>
-<main><section class="panel"><input id="search" placeholder="Search symbols…" aria-label="Search symbols"><select id="list" aria-label="Watchlist"><option value="new">Primary Favorites (41)</option><option value="old">Older Favorites (14)</option><option value="all">Combined unique</option></select><div id="symbols"></div></section>
-<section class="panel"><h2 id="selected">CBRS</h2><div id="chart" class="chart"></div></section>
-<section class="panel"><h2>Market overview</h2><p>Compact stock tiles · latest price and daily change · quotes may be delayed <span class="quote-legend"><span class="up">▲ Green = up</span><span class="down">▼ Red = down</span><span class="flat">— Gray = unchanged</span></span></p><div id="overview-grid" class="overview-grid"></div></section>
-<p class="foot">Public ticker watchlist snapshot only; no brokerage account credentials, positions, or orders. Quotes may be delayed, unavailable, or unsuitable for trading. This page does not automatically synchronize with your brokerage.</p></main>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Market Monitor</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}
+body{margin:0;background:#0b1220;color:#e6edf7;font:15px system-ui,-apple-system,sans-serif}
+main{max-width:1600px;margin:auto;padding:20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+h1{font-size:clamp(22px,3vw,32px);margin:0}p{margin:6px 0;color:#a7b6ce}
+.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+input{background:#182438;color:#fff;border:1px solid #344761;border-radius:9px;padding:11px 13px;min-width:180px;flex:1;max-width:350px}
+.count,.note{color:#a7b6ce;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:12px}
+.tile{position:relative;min-width:0;min-height:160px;overflow:hidden;border:1px solid #33465e;border-radius:12px;background:#151f30}
+.tile-label{position:absolute;top:7px;right:9px;color:#a7b6ce;font-size:11px;z-index:1;pointer-events:none}
+.tile .tradingview-widget-container{height:160px;width:100%}
+.tile .tradingview-widget-container__widget{height:100%;width:100%}
+.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:13px;margin:8px 0 18px}
+.up{color:#4ade80}.down{color:#fb7185}.neutral{color:#a7b6ce}
+footer{margin-top:20px;font-size:12px;color:#899ab3;line-height:1.6}
+@media(max-width:520px){main{padding:12px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{min-height:165px}.tile .tradingview-widget-container{height:165px}.tile-label{font-size:10px}}
+</style>
+</head>
+<body><main>
+<header><div><h1>Market Monitor</h1><p>Favorites overview · stocks, ETFs, indices and FX</p></div><span class="count" id="count"></span></header>
+<div class="controls"><input id="search" type="search" placeholder="Filter symbols…" aria-label="Filter symbols"><span class="note">Quotes may be delayed</span></div>
+<div class="legend"><span class="up">▲ Gain</span><span class="down">▼ Loss</span><span class="neutral">— Unchanged / unavailable</span></div>
+<section id="grid" class="grid" aria-label="Favorites market overview"></section>
+<footer>Source: TradingView quote widgets. Each tile displays a ticker and the provider's latest available price and daily change; values are controlled by TradingView and may be delayed or unavailable. Imported Favorites snapshot from November 13, 2026; not automatically synced with the brokerage. No account credentials or holdings are published.</footer>
+</main>
 <script>
-const primary=["AAPL","AMZN","META","NVDA","SPY","TSLA","USD.CNH","GOOG","COST","USD.HKD","SLV","VOO","SNDK","OHI","TSM","SPHD","UNH","MU","WMT","INTC","BRK.B","QCOM","ASML","AMD","NFLX","CALY","RDDT","PLTR","SOFI","FIG","ADBE","WDAY","DRAM","CBRS","MRVL","SPCX","ORCL","SKHY","PSA","AVGO","MSFT"],older=["SPX","AAPL","AMZN","DIS","GOOGL","IBKR","META","MSFT","NVDA","SPY","TSLA","EUR.USD","GBP.USD","USD.JPY"];
+const symbols=["CBRS","AAPL","AMZN","META","NVDA","SPY","TSLA","USD.CNH","GOOG","COST","USD.HKD","SLV","VOO","SNDK","OHI","TSM","SPHD","UNH","MU","WMT","INTC","BRK.B","QCOM","ASML","AMD","NFLX","CALY","RDDT","PLTR","SOFI","FIG","ADBE","WDAY","DRAM","MRVL","SPCX","ORCL","SKHY","PSA","AVGO","MSFT","SPX","DIS","GOOGL","IBKR","EUR.USD","GBP.USD","USD.JPY"];
 const explicit={'BRK.B':'NYSE:BRK.B','SPX':'SP:SPX','USD.CNH':'FX_IDC:USDCNH','USD.HKD':'FX_IDC:USDHKD','EUR.USD':'FX:EURUSD','GBP.USD':'FX:GBPUSD','USD.JPY':'FX:USDJPY'};
-const nasdaq=new Set('AAPL AMZN META NVDA TSLA GOOG COST SNDK MU INTC QCOM AMD NFLX RDDT PLTR SOFI ADBE WDAY MRVL ORCL AVGO MSFT CBRS'.split(' '));
-const nyse=new Set('OHI UNH WMT CALY FIG PSA TSM ASML'.split(' '));
+const nasdaq=new Set('AAPL AMZN META NVDA TSLA GOOG COST SNDK MU INTC QCOM AMD NFLX RDDT PLTR SOFI ADBE WDAY MRVL ORCL AVGO MSFT CBRS GOOGL IBKR'.split(' '));
+const nyse=new Set('OHI UNH WMT CALY FIG PSA TSM ASML DIS'.split(' '));
 function tv(t){return explicit[t]||((nasdaq.has(t)?'NASDAQ':nyse.has(t)?'NYSE':'AMEX')+':'+t)}
-function chart(t){document.getElementById('selected').textContent=t;const root=document.getElementById('chart');root.replaceChildren();const wrap=document.createElement('div');wrap.className='tradingview-widget-container';wrap.style.height='100%';const inner=document.createElement('div');inner.className='tradingview-widget-container__widget';inner.style.height='100%';wrap.append(inner);root.append(wrap);const script=document.createElement('script');script.src='https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';script.async=true;script.textContent=JSON.stringify({autosize:true,symbol:tv(t),interval:'5',timezone:'America/New_York',theme:'dark',style:'1',locale:'en',allow_symbol_change:true,hide_side_toolbar:false,support_host:'https://www.tradingview.com'});wrap.append(script)}
-function render(){const v=document.getElementById('list').value;const list=v==='new'?primary:v==='old'?older:[...new Set([...primary,...older])];const q=document.getElementById('search').value.trim().toUpperCase();const root=document.getElementById('symbols');root.replaceChildren();list.filter(t=>t.includes(q)).forEach(t=>{const b=document.createElement('button');b.className='symbol';b.textContent=t;b.onclick=()=>{document.querySelectorAll('.symbol').forEach(x=>x.classList.remove('active'));b.classList.add('active');chart(t)};root.append(b)})}
-const overviewTickers=['CBRS','NVDA','GOOG','MSFT','AMD','AVGO','MU','MRVL','META','AMZN'];
-function renderOverview(){const grid=document.getElementById('overview-grid');grid.replaceChildren();for(const ticker of overviewTickers){const tile=document.createElement('div');tile.className='overview-tile';const wrap=document.createElement('div');wrap.className='tradingview-widget-container';const widget=document.createElement('div');widget.className='tradingview-widget-container__widget';wrap.append(widget);tile.append(wrap);grid.append(tile);const script=document.createElement('script');script.src='https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js';script.async=true;script.textContent=JSON.stringify({symbol:tv(ticker),width:'100%',isTransparent:true,colorTheme:'dark',locale:'en'});wrap.append(script)}}
-renderOverview();
-document.getElementById('search').oninput=render;document.getElementById('list').onchange=render;render();chart('CBRS');
+const grid=document.getElementById('grid');
+function createTile(ticker){
+ const tile=document.createElement('article');tile.className='tile';tile.dataset.symbol=ticker;
+ const label=document.createElement('span');label.className='tile-label';label.textContent=ticker;tile.append(label);
+ const wrap=document.createElement('div');wrap.className='tradingview-widget-container';
+ const widget=document.createElement('div');widget.className='tradingview-widget-container__widget';wrap.append(widget);tile.append(wrap);
+ const script=document.createElement('script');script.src='https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js';script.async=true;
+ script.textContent=JSON.stringify({symbol:tv(ticker),width:'100%',isTransparent:true,colorTheme:'dark',locale:'en'});
+ wrap.append(script);return tile;
+}
+const tiles=symbols.map(createTile);grid.append(...tiles);
+function filter(){const q=document.getElementById('search').value.trim().toUpperCase();let n=0;for(const tile of tiles){const visible=tile.dataset.symbol.includes(q);tile.hidden=!visible;tile.style.display=visible?'':'none';if(visible)n++}document.getElementById('count').textContent=n+' / '+symbols.length+' instruments'}
+document.getElementById('search').addEventListener('input',filter);filter();
 </script></body></html>
