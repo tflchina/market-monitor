@@ -1,0 +1,34 @@
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+import yfinance as yf
+
+groups = {
+"Technology":"AAPL NVDA MSFT AVGO AMD MU MRVL INTC QCOM ASML TSM SNDK ADBE ORCL WDAY PLTR DRAM SKHY SPCX",
+"Communication":"GOOG GOOGL META NFLX",
+"Consumer":"AMZN TSLA COST WMT DIS",
+"Financials":"BRK.B IBKR SOFI FIG",
+"Healthcare":"UNH",
+"RealEstate":"OHI PSA",
+"Other":"CBRS RDDT CALY",
+"ETFs":"SPY VOO SPHD SLV SPX",
+"Forex":"USD.CNH USD.HKD EUR.USD GBP.USD USD.JPY"
+}
+aliases = {"BRK.B":"BRK-B","SPX":"^GSPC","USD.CNH":"CNH=X","USD.HKD":"HKD=X","EUR.USD":"EURUSD=X","GBP.USD":"GBPUSD=X","USD.JPY":"JPY=X"}
+symbols = list(dict.fromkeys(s for group in groups.values() for s in group.split()))
+quotes = {}
+for symbol in symbols:
+    ticker = aliases.get(symbol, symbol)
+    try:
+        data = yf.Ticker(ticker).history(period="5d", interval="1d", auto_adjust=False)
+        if len(data) < 2:
+            continue
+        last = float(data["Close"].iloc[-1])
+        prev = float(data["Close"].iloc[-2])
+        if last > 0 and prev > 0:
+            quotes[symbol] = {"price": round(last, 4), "changePct": round((last/prev-1)*100, 4)}
+    except Exception as exc:
+        print(f"{symbol}: {exc}")
+output = {"updatedAt": datetime.now(timezone.utc).isoformat(), "quotes": quotes, "note": "Daily close based; not live exchange quotes"}
+Path("quotes.json").write_text(json.dumps(output, indent=2)+"\n")
+print(f"Retrieved {len(quotes)} of {len(symbols)} symbols")
