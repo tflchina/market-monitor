@@ -1,193 +1,193 @@
 {
-  "updatedAt": "2026-11-13T18:27:53.090741+00:00",
+  "updatedAt": "2026-11-13T18:34:53.335776+00:00",
   "quotes": {
     "AAPL": {
-      "price": 358.32,
-      "changePct": 0.9693
+      "price": 357.715,
+      "changePct": 0.7989
     },
     "NVDA": {
-      "price": 161.42,
-      "changePct": -2.8702
+      "price": 161.545,
+      "changePct": -2.795
     },
     "MSFT": {
-      "price": 524.56,
-      "changePct": 0.2983
+      "price": 524.114,
+      "changePct": 0.213
     },
     "AVGO": {
-      "price": 345.93,
-      "changePct": -5.0582
+      "price": 345.715,
+      "changePct": -5.1172
     },
     "AMD": {
-      "price": 526.33,
-      "changePct": -10.0752
+      "price": 526.96,
+      "changePct": -9.9675
     },
     "MU": {
-      "price": 763.825,
-      "changePct": -4.3353
+      "price": 763.085,
+      "changePct": -4.428
     },
     "MRVL": {
-      "price": 155.225,
-      "changePct": -5.6096
+      "price": 155.2,
+      "changePct": -5.6248
     },
     "INTC": {
-      "price": 59.08,
-      "changePct": -3.4641
+      "price": 59.065,
+      "changePct": -3.4886
     },
     "QCOM": {
-      "price": 171.6101,
-      "changePct": -3.1218
+      "price": 172.085,
+      "changePct": -2.8537
     },
     "ASML": {
-      "price": 1483.0,
-      "changePct": -0.9431
+      "price": 1483.075,
+      "changePct": -0.9381
     },
     "TSM": {
-      "price": 396.84,
-      "changePct": -2.1332
+      "price": 397.065,
+      "changePct": -2.0777
     },
     "SNDK": {
-      "price": 866.8258,
-      "changePct": -7.5346
+      "price": 864.8601,
+      "changePct": -7.7443
     },
     "ADBE": {
-      "price": 241.745,
-      "changePct": 1.3436
+      "price": 242.47,
+      "changePct": 1.6475
     },
     "ORCL": {
-      "price": 124.505,
-      "changePct": -2.0494
+      "price": 124.55,
+      "changePct": -2.014
     },
     "WDAY": {
-      "price": 194.46,
-      "changePct": 2.0038
+      "price": 194.86,
+      "changePct": 2.2136
     },
     "PLTR": {
-      "price": 168.22,
-      "changePct": -1.9583
+      "price": 168.185,
+      "changePct": -1.9787
     },
     "DRAM": {
-      "price": 41.855,
-      "changePct": -4.1342
+      "price": 41.7879,
+      "changePct": -4.2879
     },
     "SKHY": {
-      "price": 131.3,
-      "changePct": -4.6547
+      "price": 130.865,
+      "changePct": -4.9706
     },
     "SPCX": {
-      "price": 140.05,
-      "changePct": 0.0786
+      "price": 139.895,
+      "changePct": -0.0322
     },
     "GOOG": {
-      "price": 292.3148,
-      "changePct": -1.0277
+      "price": 292.4,
+      "changePct": -0.9988
     },
     "GOOGL": {
-      "price": 295.52,
-      "changePct": -1.0646
+      "price": 295.64,
+      "changePct": -1.0244
     },
     "META": {
-      "price": 637.785,
-      "changePct": 2.2731
+      "price": 636.955,
+      "changePct": 2.14
     },
     "NFLX": {
-      "price": 62.355,
-      "changePct": -0.5344
+      "price": 62.49,
+      "changePct": -0.319
     },
     "AMZN": {
-      "price": 265.67,
-      "changePct": -0.6618
+      "price": 265.64,
+      "changePct": -0.673
     },
     "TSLA": {
-      "price": 391.1501,
-      "changePct": -1.5851
+      "price": 390.395,
+      "changePct": -1.7751
     },
     "COST": {
-      "price": 1104.4,
-      "changePct": 1.1161
+      "price": 1104.16,
+      "changePct": 1.0941
     },
     "WMT": {
-      "price": 127.9,
-      "changePct": 1.3551
+      "price": 127.82,
+      "changePct": 1.2917
     },
     "DIS": {
-      "price": 119.07,
-      "changePct": 0.7105
+      "price": 119.125,
+      "changePct": 0.757
     },
     "BRK.B": {
-      "price": 592.3001,
-      "changePct": 0.4188
+      "price": 592.1026,
+      "changePct": 0.3853
     },
     "IBKR": {
-      "price": 81.51,
-      "changePct": 0.2213
+      "price": 81.525,
+      "changePct": 0.2398
     },
     "SOFI": {
-      "price": 15.4999,
-      "changePct": -0.8324
+      "price": 15.485,
+      "changePct": -0.9277
     },
     "FIG": {
-      "price": 19.5,
-      "changePct": 3.0655
+      "price": 19.54,
+      "changePct": 3.277
     },
     "UNH": {
-      "price": 402.2121,
-      "changePct": -0.7202
+      "price": 402.76,
+      "changePct": -0.585
     },
     "OHI": {
-      "price": 47.05,
-      "changePct": 0.0425
+      "price": 47.015,
+      "changePct": -0.0319
     },
     "PSA": {
-      "price": 333.05,
-      "changePct": -0.084
+      "price": 332.975,
+      "changePct": -0.1065
     },
     "CBRS": {
-      "price": 108.77,
-      "changePct": 11.2737
+      "price": 108.2891,
+      "changePct": 10.7817
     },
     "RDDT": {
-      "price": 99.32,
-      "changePct": -0.231
+      "price": 99.165,
+      "changePct": -0.3867
     },
     "CALY": {
-      "price": 16.96,
-      "changePct": 2.2919
+      "price": 16.95,
+      "changePct": 2.2316
     },
     "SPY": {
-      "price": 752.43,
-      "changePct": -0.6195
+      "price": 752.27,
+      "changePct": -0.6406
     },
     "VOO": {
-      "price": 691.6699,
-      "changePct": -0.6221
+      "price": 691.59,
+      "changePct": -0.6336
     },
     "SPHD": {
-      "price": 53.0501,
-      "changePct": 0.6643
+      "price": 53.06,
+      "changePct": 0.6831
     },
     "SLV": {
-      "price": 44.3943,
-      "changePct": -1.6084
+      "price": 44.345,
+      "changePct": -1.7176
     },
     "SPX": {
-      "price": 7545.02,
-      "changePct": -0.624
+      "price": 7544.0601,
+      "changePct": -0.6367
     },
     "USD.HKD": {
       "price": 7.8454,
       "changePct": 0.0131
     },
     "EUR.USD": {
-      "price": 1.1036,
-      "changePct": -0.5308
+      "price": 1.1033,
+      "changePct": -0.5638
     },
     "GBP.USD": {
-      "price": 1.3216,
-      "changePct": -0.4546
+      "price": 1.3212,
+      "changePct": -0.4888
     },
     "USD.JPY": {
-      "price": 159.578,
-      "changePct": -0.0977
+      "price": 159.674,
+      "changePct": -0.0376
     }
   },
   "note": "Latest available 5-minute bar, compared with prior daily close; may be delayed"
